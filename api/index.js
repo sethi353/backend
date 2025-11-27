@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const serverless = require("serverless-http");
 const productRoutes = require("../routes/products");
 
 const app = express();
 
-// Enable CORS and JSON parsing
 app.use(cors());
 app.use(express.json());
 
@@ -18,4 +18,5 @@ app.get("/", (req, res) => {
 // Mount product routes
 app.use("/api/products", productRoutes);
 
-module.exports = app; // required for Vercel
+// Wrap the app with serverless
+module.exports = serverless(app);
